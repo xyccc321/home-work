@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Document</title>
+	
+	<style>
+		.close{
+			cursor: pointer;
+		}
+	</style>
+</head>
+<body>
+	<input type="text" name="txt" id="txt">
+	<!-- input里的name -->
+	<input type="button" value='添加' id='add'>
+	<ol id="list"></ol>
+	<!-- 块元素，起到换行效果 -->
+	<input type="button" value='清空列表' id='clean'>
+	<!-- 
+button 与input不同：button相当于提交按钮，如果input里面没有写提交位置，就是提交给自己，刷新但是无效果，如果只是一个普通按钮就写input，button内容更多一些，会让页面刷新无效果
+	 -->
+	 <!-- 
+   内联元素不换行，两个按钮之间有一个隐藏的ol元素
+	  -->
+	 <script src='jquery.min.js'></script>
+	 <!-- 两个script引入外部文件，一个写内容 -->
+	 <script>
+	 	var txt=$('#txt');
+	 	//获取第一行信息,txt=第一个input的值
+	 	var list=$('#list');
+	 	//获取ol
+	 	//用多次可以设置变量，清空和添加只需要操作一次（虽然会用很多次）
+	 	$('#add').click(function(){
+	 	  var v=txt.val();
+	 		//val()获取信息,v=获取第一个input框信息
+	 		//v是瞬间存在的值
+	 		if(v==''){
+	 			alert('还没有填写内容')
+	 		}else{
+	 			txt.val('');
+	 			
+	 			//val()获取 val('')''设置值，为空值
+	 			//虽然内容为空，但是下面的内容就不是为空了，下面的内容就用li来完成
+	 			var li='<li><span class="close">&times;</span>'+v+'</li>';
+	 			//&times 是减号 生成li元素并插入减号
+	 			list.prepend(li);
+	 			//prepend()追加值
+	 		}
+	 	});
+	 	// $('.close').click(function(){
+   //       $(this).parent().remove();
+   //       //当点击叉号时，这个叉号的父元素，移除
+	 	// });
+	 list.on('click','.close',function(){
+    $(this).parent().remove();
+	 })
+	 //只要是在list之内的，有close的，发生点击事件执行操作
+	 $('#clean').click(function(){
+	 	 //list.find('li').remove();
+	 	//点击清空列表，把ol里面的所有后代li全部清除
+	 	list.empty();
+	 	//两种方法清空
+	 })
+	 </script>
+</body>
+</html>
